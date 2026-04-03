@@ -28,7 +28,7 @@ export function JotformMapping(props) {
     setLoadingForms(true);
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/jotforms/names",
+        "https://pulse-backend-latest.onrender.com/api/jotforms/names",
         { withCredentials: true }
       );
       setJotformNames(response.data);
@@ -49,7 +49,7 @@ export function JotformMapping(props) {
     setLoadingCourses(true);
     try {
       const response = await axios.get(
-        "http://localhost:8081/api/courses/names",
+        "https://pulse-backend-latest.onrender.com/api/courses/names",
         { withCredentials: true }
       );
       setCourseNames(response.data);
@@ -103,14 +103,14 @@ export function JotformMapping(props) {
 
 
       await axios.post(
-        "http://localhost:8081/api/courses/learning",
+        "https://pulse-backend-latest.onrender.com/api/courses/learning",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
         }
       );
-      
+
       notifications.show({
         title: "Success",
         message: "Learning form mapped successfully!",
@@ -143,14 +143,14 @@ export function JotformMapping(props) {
       };
 
       await axios.post(
-        "http://localhost:8081/api/courses/assignment",
+        "https://pulse-backend-latest.onrender.com/api/courses/assignment",
         payload,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      
+
       notifications.show({
         title: "Success",
         message: "Assignment form mapped successfully!",

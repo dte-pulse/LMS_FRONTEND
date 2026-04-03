@@ -34,18 +34,18 @@ export function UserMapping({ onSuccess, onClose }) {
       // --- START OF UPDATE ---
       // Switched to axios and added withCredentials
       const response = await axios.post(
-        'http://localhost:8081/api/user-mappings',
+        'https://pulse-backend-latest.onrender.com/api/user-mappings',
         { email: values.email, groupName: values.group },
         { withCredentials: true }
       );
       // --- END OF UPDATE ---
 
       console.log('Successfully mapped user:', response.data);
-      
+
       if (onSuccess) {
         onSuccess(response.data);
       }
-      
+
     } catch (err) {
       // Updated error handling for axios
       const errorMessage = err.response?.data || err.message || 'Failed to map user.';

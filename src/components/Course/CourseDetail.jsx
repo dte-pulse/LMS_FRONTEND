@@ -32,7 +32,7 @@ export function CourseDetail({ course, onBack }) {
         };
 
         try {
-            await axios.post('http://localhost:8081/api/completions/learning', payload, {
+            await axios.post('https://pulse-backend-latest.onrender.com/api/completions/learning', payload, {
                 withCredentials: true,
             });
 
@@ -63,14 +63,14 @@ export function CourseDetail({ course, onBack }) {
                     <Title order={3} className={classes.courseTitle}>{course.courseName}</Title>
                     <Text size="sm" className={classes.courseGroup}>Group: {course.groupName}</Text>
                 </Box>
-                
+
                 {/* Course Details Section */}
                 <Box mb="xl">
-                    <Divider my="sm" label="Details" labelPosition="center" style={{color: 'white'}} />
+                    <Divider my="sm" label="Details" labelPosition="center" style={{ color: 'white' }} />
                     {course.daysOfJoining != null && (
                         <Box className={classes.detailItem}>
-                             <IconClock size={16} />
-                             <Text size="sm">Available in {course.daysOfJoining} days</Text>
+                            <IconClock size={16} />
+                            <Text size="sm">Available in {course.daysOfJoining} days</Text>
                         </Box>
                     )}
                     {course.preRequisiteCourseName && (
@@ -80,7 +80,7 @@ export function CourseDetail({ course, onBack }) {
                         </Box>
                     )}
                 </Box>
-                
+
                 <Box className={classes.navigationContainer}>
                     {course.learningJotformName && (
                         <Button variant={activeTab === "learning" ? "filled" : "subtle"} color="blue" fullWidth leftSection={<IconBook size={16} />} onClick={() => setActiveTab("learning")} mb="md" className={classes.navButton}>

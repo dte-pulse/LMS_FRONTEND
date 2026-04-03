@@ -236,7 +236,7 @@ export function JotformAssignment() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`http://localhost:8081/api/jotforms`, {
+      const response = await axios.get(`https://pulse-backend-latest.onrender.com/api/jotforms`, {
         withCredentials: true
       });
       const foundForm = response.data.find(form => form.jotformName === jotformId);
@@ -487,7 +487,7 @@ export function JotformAssignment() {
         formData.append('videos', answer.blob, `answer-video-${index + 1}.webm`);
       });
 
-      const endpoint = 'http://localhost:8081/api/assignment/submit-answer';
+      const endpoint = 'https://pulse-backend-latest.onrender.com/api/assignment/submit-answer';
       const response = await axios.post(endpoint, formData, {
         withCredentials: true,
       });
@@ -717,7 +717,7 @@ export function JotformAssignment() {
         </Container>
 
         {/* Submitting Modal */}
-        <Modal opened={isSubmitting} withCloseButton={false} centered size="sm" onClose={() => {}}>
+        <Modal opened={isSubmitting} withCloseButton={false} centered size="sm" onClose={() => { }}>
           <Center py="xl">
             <Stack align="center">
               <Loader size="xl" />

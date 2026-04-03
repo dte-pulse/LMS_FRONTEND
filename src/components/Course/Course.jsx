@@ -17,11 +17,11 @@ export function Course() {
       try {
         // --- START OF CHANGE ---
         // Make the GET request with the withCredentials option
-        const response = await axios.get('http://localhost:8081/api/courses', {
+        const response = await axios.get('https://pulse-backend-latest.onrender.com/api/courses', {
           withCredentials: true,
         });
         // --- END OF CHANGE ---
-        
+
         setCourses(response.data);
       } catch (err) {
         setError('Failed to fetch courses. Please try again later.');
@@ -45,9 +45,9 @@ export function Course() {
   // Show CourseDetail component when a course is selected
   if (selectedCourse) {
     return (
-      <CourseDetail 
-        course={selectedCourse} 
-        onBack={handleBackToCourses} 
+      <CourseDetail
+        course={selectedCourse}
+        onBack={handleBackToCourses}
       />
     );
   }
@@ -67,8 +67,8 @@ export function Course() {
       ) : error ? (
         <Text ta="center" c="red">{error}</Text>
       ) : courses.length > 0 ? (
-        <SimpleGrid 
-          cols={{ base: 1, sm: 2, md: 3, lg: 4 }} 
+        <SimpleGrid
+          cols={{ base: 1, sm: 2, md: 3, lg: 4 }}
           spacing="lg"
         >
           {courses.map((course) => (

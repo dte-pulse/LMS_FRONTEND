@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { 
-  Loader, 
-  Text, 
-  Box, 
-  Divider, 
-  Image, 
-  Group, 
-  Button,
-  Progress,
-  Badge,
-  Center,
-  ActionIcon,
-  Tooltip,
-  Flex,
-  Container,
-  Title,
+import {
+    Loader,
+    Text,
+    Box,
+    Divider,
+    Image,
+    Group,
+    Button,
+    Progress,
+    Badge,
+    Center,
+    ActionIcon,
+    Tooltip,
+    Flex,
+    Container,
+    Title,
 } from "@mantine/core";
-import { 
-  IconChevronLeft, 
-  IconChevronRight, 
-  IconCircleDot,
-  IconDots,
-  IconPlayerPlay,
-  IconCheck,
-  IconX,
-  IconBook,
-  IconProgress,
+import {
+    IconChevronLeft,
+    IconChevronRight,
+    IconCircleDot,
+    IconDots,
+    IconPlayerPlay,
+    IconCheck,
+    IconX,
+    IconBook,
+    IconProgress,
 } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
@@ -80,10 +80,10 @@ function RenderElement({ element }) {
         case "video":
             return (
                 <Box mb="md" style={baseStyle}>
-                    <video 
-                        width={width || "100%"} 
-                        height={height || "auto"} 
-                        controls 
+                    <video
+                        width={width || "100%"}
+                        height={height || "auto"}
+                        controls
                         style={{ borderRadius: 8 }}
                         poster={element.poster || undefined}
                     >
@@ -134,9 +134,9 @@ function RenderElement({ element }) {
             return (
                 <Box mb="md" style={baseStyle}>
                     <Text fw={500} size="md" mb={4}>Random Integer</Text>
-                    <Flex align="center" gap="md" p="md" style={{ 
-                        background: '#f0f7ff', 
-                        borderRadius: '8px', 
+                    <Flex align="center" gap="md" p="md" style={{
+                        background: '#f0f7ff',
+                        borderRadius: '8px',
                         border: '1px solid #d1e8ff',
                         maxWidth: 200
                     }}>
@@ -152,11 +152,11 @@ function RenderElement({ element }) {
         case "videorecording":
             return (
                 <Box mb="md" style={baseStyle}>
-                    <Box style={{ 
-                        textAlign: 'center', 
-                        padding: '24px', 
-                        border: '2px dashed #ff6b35', 
-                        borderRadius: '12px', 
+                    <Box style={{
+                        textAlign: 'center',
+                        padding: '24px',
+                        border: '2px dashed #ff6b35',
+                        borderRadius: '12px',
                         backgroundColor: '#fff5f0',
                         minHeight: 120,
                         display: 'flex',
@@ -178,11 +178,11 @@ function RenderElement({ element }) {
         case "audiorecording":
             return (
                 <Box mb="md" style={baseStyle}>
-                    <Box style={{ 
-                        textAlign: 'center', 
-                        padding: '24px', 
-                        border: '2px dashed #007CFF', 
-                        borderRadius: '12px', 
+                    <Box style={{
+                        textAlign: 'center',
+                        padding: '24px',
+                        border: '2px dashed #007CFF',
+                        borderRadius: '12px',
                         backgroundColor: '#f0f7ff',
                         minHeight: 120,
                         display: 'flex',
@@ -204,19 +204,19 @@ function RenderElement({ element }) {
         case "timer":
             return (
                 <Box mb="md" style={baseStyle}>
-                    <Box style={{ 
-                        padding: '16px', 
-                        border: '2px solid #007CFF', 
-                        borderRadius: '12px', 
+                    <Box style={{
+                        padding: '16px',
+                        border: '2px solid #007CFF',
+                        borderRadius: '12px',
                         backgroundColor: '#f0f7ff',
                         textAlign: 'center',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
-                        <Progress 
-                            size="xs" 
-                            value={33} 
-                            color="blue" 
+                        <Progress
+                            size="xs"
+                            value={33}
+                            color="blue"
                             radius="xl"
                             style={{ marginBottom: 8 }}
                             sections={[
@@ -249,275 +249,275 @@ function RenderElement({ element }) {
 }
 
 // Progress Bar Navigation Component
-function ProgressNavigation({ 
-  totalPages, 
-  currentPage, 
-  onPageChange, 
-  onPrevious, 
-  onNext, 
-  onSubmit,
-  isLastPage,
-  showProgress = true 
+function ProgressNavigation({
+    totalPages,
+    currentPage,
+    onPageChange,
+    onPrevious,
+    onNext,
+    onSubmit,
+    isLastPage,
+    showProgress = true
 }) {
-  const [hoveredPage, setHoveredPage] = useState(null);
+    const [hoveredPage, setHoveredPage] = useState(null);
 
-  const getProgress = () => {
-    return ((currentPage + 1) / totalPages) * 100;
-  };
+    const getProgress = () => {
+        return ((currentPage + 1) / totalPages) * 100;
+    };
 
-  const renderPageIndicators = () => {
-    const indicators = [];
-    const maxVisible = 7; // Show up to 7 page indicators
-    let start = 0;
-    let end = totalPages - 1;
+    const renderPageIndicators = () => {
+        const indicators = [];
+        const maxVisible = 7; // Show up to 7 page indicators
+        let start = 0;
+        let end = totalPages - 1;
 
-    if (totalPages <= maxVisible) {
-      // Show all pages
-      for (let i = 0; i < totalPages; i++) {
-        const isActive = i === currentPage;
-        const isHovered = hoveredPage === i;
-        indicators.push(
-          <Tooltip key={`page-${i}`} label={`Page ${i + 1}`} position="top" withArrow>
-            <ActionIcon
-              size={28}
-              variant={isActive ? "filled" : "subtle"}
-              color={isActive ? "blue" : "gray"}
-              onClick={() => onPageChange(i)}
-              onMouseEnter={() => setHoveredPage(i)}
-              onMouseLeave={() => setHoveredPage(null)}
-              style={{ 
-                cursor: 'pointer',
-                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                transition: 'transform 0.2s ease',
-                border: isActive ? '2px solid #228BE6' : '1px solid transparent'
-              }}
+        if (totalPages <= maxVisible) {
+            // Show all pages
+            for (let i = 0; i < totalPages; i++) {
+                const isActive = i === currentPage;
+                const isHovered = hoveredPage === i;
+                indicators.push(
+                    <Tooltip key={`page-${i}`} label={`Page ${i + 1}`} position="top" withArrow>
+                        <ActionIcon
+                            size={28}
+                            variant={isActive ? "filled" : "subtle"}
+                            color={isActive ? "blue" : "gray"}
+                            onClick={() => onPageChange(i)}
+                            onMouseEnter={() => setHoveredPage(i)}
+                            onMouseLeave={() => setHoveredPage(null)}
+                            style={{
+                                cursor: 'pointer',
+                                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                                transition: 'transform 0.2s ease',
+                                border: isActive ? '2px solid #228BE6' : '1px solid transparent'
+                            }}
+                        >
+                            <IconCircleDot
+                                size={isActive ? 20 : 16}
+                                fill={isActive ? "white" : "none"}
+                                stroke={1.5}
+                            />
+                        </ActionIcon>
+                    </Tooltip>
+                );
+            }
+        } else {
+            // Smart pagination with ellipsis
+            if (currentPage < 3) {
+                // Near beginning - show first pages
+                start = 0;
+                end = maxVisible - 2;
+            } else if (currentPage > totalPages - 4) {
+                // Near end - show last pages
+                start = totalPages - maxVisible + 1;
+                end = totalPages - 1;
+            } else {
+                // Middle - center around current page
+                start = currentPage - 2;
+                end = currentPage + 2;
+            }
+
+            // First page
+            indicators.push(
+                <Tooltip key="first" label="Page 1" position="top" withArrow>
+                    <ActionIcon
+                        size={28}
+                        variant="subtle"
+                        color="gray"
+                        onClick={() => onPageChange(0)}
+                        onMouseEnter={() => setHoveredPage(0)}
+                        onMouseLeave={() => setHoveredPage(null)}
+                        style={{ cursor: 'pointer' }}
+                    >
+                        <IconCircleDot size={16} />
+                    </ActionIcon>
+                </Tooltip>
+            );
+
+            // Left ellipsis if needed
+            if (start > 1) {
+                indicators.push(
+                    <Tooltip key="left-ellipsis" label="..." position="top" withArrow>
+                        <ActionIcon size={28} disabled style={{ opacity: 0.4 }}>
+                            <IconDots size={16} />
+                        </ActionIcon>
+                    </Tooltip>
+                );
+            }
+
+            // Visible pages
+            for (let i = start; i <= end; i++) {
+                const isActive = i === currentPage;
+                const isHovered = hoveredPage === i;
+                indicators.push(
+                    <Tooltip key={`page-${i}`} label={`Page ${i + 1}`} position="top" withArrow>
+                        <ActionIcon
+                            size={28}
+                            variant={isActive ? "filled" : "subtle"}
+                            color={isActive ? "blue" : "gray"}
+                            onClick={() => onPageChange(i)}
+                            onMouseEnter={() => setHoveredPage(i)}
+                            onMouseLeave={() => setHoveredPage(null)}
+                            style={{
+                                cursor: 'pointer',
+                                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+                                transition: 'transform 0.2s ease',
+                                border: isActive ? '2px solid #228BE6' : '1px solid transparent'
+                            }}
+                        >
+                            <IconCircleDot
+                                size={isActive ? 20 : 16}
+                                fill={isActive ? "white" : "none"}
+                                stroke={1.5}
+                            />
+                        </ActionIcon>
+                    </Tooltip>
+                );
+            }
+
+            // Right ellipsis if needed
+            if (end < totalPages - 2) {
+                indicators.push(
+                    <Tooltip key="right-ellipsis" label="..." position="top" withArrow>
+                        <ActionIcon size={28} disabled style={{ opacity: 0.4 }}>
+                            <IconDots size={16} />
+                        </ActionIcon>
+                    </Tooltip>
+                );
+            }
+
+            // Last page
+            if (end < totalPages - 1) {
+                indicators.push(
+                    <Tooltip key="last" label={`Page ${totalPages}`} position="top" withArrow>
+                        <ActionIcon
+                            size={28}
+                            variant="subtle"
+                            color="gray"
+                            onClick={() => onPageChange(totalPages - 1)}
+                            onMouseEnter={() => setHoveredPage(totalPages - 1)}
+                            onMouseLeave={() => setHoveredPage(null)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <IconCircleDot size={16} />
+                        </ActionIcon>
+                    </Tooltip>
+                );
+            }
+        }
+
+        return indicators;
+    };
+
+    const renderNavigation = () => {
+        const isFirstPage = currentPage === 0;
+        const isLastPage = currentPage === totalPages - 1;
+
+        return (
+            <Flex
+                direction="column"
+                align="center"
+                gap="md"
+                style={{ width: '100%' }}
             >
-              <IconCircleDot 
-                size={isActive ? 20 : 16} 
-                fill={isActive ? "white" : "none"} 
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Tooltip>
+                {/* Navigation Buttons */}
+                <Group justify="center" gap="lg" wrap="nowrap">
+                    {!isFirstPage && (
+                        <Tooltip label="Previous Page" position="top" withArrow>
+                            <Button
+                                variant="outline"
+                                size="md"
+                                leftSection={<IconChevronLeft size={16} />}
+                                onClick={onPrevious}
+                                style={{ flexShrink: 0 }}
+                            >
+                                Back
+                            </Button>
+                        </Tooltip>
+                    )}
+
+                    <Flex
+                        direction="column"
+                        align="center"
+                        gap={8}
+                        style={{ flex: 1, minWidth: 200 }}
+                    >
+                        {/* Progress Bar */}
+                        <Progress
+                            size="md"
+                            value={getProgress()}
+                            color="blue"
+                            radius="xl"
+                            style={{
+                                width: '100%',
+                                maxWidth: 300,
+                                height: 8
+                            }}
+                            sections={[
+                                { value: getProgress(), color: 'blue' },
+                                { value: 100 - getProgress(), color: 'gray' }
+                            ]}
+                        />
+
+                        {/* Progress Info */}
+                        <Group gap="xs" justify="center" wrap="nowrap">
+                            <Text size="sm" fw={500} c="blue">
+                                {Math.round(getProgress())}%
+                            </Text>
+                            <Text size="xs" c="dimmed">
+                                • Page {currentPage + 1} of {totalPages}
+                            </Text>
+                        </Group>
+                    </Flex>
+
+                    {isLastPage ? (
+                        <Tooltip label="Submit Learning Material" position="top" withArrow>
+                            <Button
+                                size="md"
+                                color="green"
+                                leftSection={<IconPlayerPlay size={16} />}
+                                onClick={onSubmit}
+                                style={{ flexShrink: 0 }}
+                            >
+                                Submit
+                            </Button>
+                        </Tooltip>
+                    ) : (
+                        <Tooltip label="Next Page" position="top" withArrow>
+                            <Button
+                                size="md"
+                                leftSection={<IconChevronRight size={16} />}
+                                onClick={onNext}
+                                style={{ flexShrink: 0 }}
+                            >
+                                Next
+                            </Button>
+                        </Tooltip>
+                    )}
+                </Group>
+
+                {/* Page Indicators (only show if more than 3 pages) */}
+                {totalPages > 3 && (
+                    <Box>
+                        <Center>
+                            <Group gap="xs" justify="center">
+                                {renderPageIndicators()}
+                            </Group>
+                        </Center>
+                        <Text size="xs" c="dimmed" ta="center" mt={4} style={{ fontSize: '11px' }}>
+                            Click dots to jump to any page
+                        </Text>
+                    </Box>
+                )}
+            </Flex>
         );
-      }
-    } else {
-      // Smart pagination with ellipsis
-      if (currentPage < 3) {
-        // Near beginning - show first pages
-        start = 0;
-        end = maxVisible - 2;
-      } else if (currentPage > totalPages - 4) {
-        // Near end - show last pages
-        start = totalPages - maxVisible + 1;
-        end = totalPages - 1;
-      } else {
-        // Middle - center around current page
-        start = currentPage - 2;
-        end = currentPage + 2;
-      }
-
-      // First page
-      indicators.push(
-        <Tooltip key="first" label="Page 1" position="top" withArrow>
-          <ActionIcon
-            size={28}
-            variant="subtle"
-            color="gray"
-            onClick={() => onPageChange(0)}
-            onMouseEnter={() => setHoveredPage(0)}
-            onMouseLeave={() => setHoveredPage(null)}
-            style={{ cursor: 'pointer' }}
-          >
-            <IconCircleDot size={16} />
-          </ActionIcon>
-        </Tooltip>
-      );
-
-      // Left ellipsis if needed
-      if (start > 1) {
-        indicators.push(
-          <Tooltip key="left-ellipsis" label="..." position="top" withArrow>
-            <ActionIcon size={28} disabled style={{ opacity: 0.4 }}>
-              <IconDots size={16} />
-            </ActionIcon>
-          </Tooltip>
-        );
-      }
-
-      // Visible pages
-      for (let i = start; i <= end; i++) {
-        const isActive = i === currentPage;
-        const isHovered = hoveredPage === i;
-        indicators.push(
-          <Tooltip key={`page-${i}`} label={`Page ${i + 1}`} position="top" withArrow>
-            <ActionIcon
-              size={28}
-              variant={isActive ? "filled" : "subtle"}
-              color={isActive ? "blue" : "gray"}
-              onClick={() => onPageChange(i)}
-              onMouseEnter={() => setHoveredPage(i)}
-              onMouseLeave={() => setHoveredPage(null)}
-              style={{ 
-                cursor: 'pointer',
-                transform: isHovered ? 'scale(1.1)' : 'scale(1)',
-                transition: 'transform 0.2s ease',
-                border: isActive ? '2px solid #228BE6' : '1px solid transparent'
-              }}
-            >
-              <IconCircleDot 
-                size={isActive ? 20 : 16} 
-                fill={isActive ? "white" : "none"} 
-                stroke={1.5}
-              />
-            </ActionIcon>
-          </Tooltip>
-        );
-      }
-
-      // Right ellipsis if needed
-      if (end < totalPages - 2) {
-        indicators.push(
-          <Tooltip key="right-ellipsis" label="..." position="top" withArrow>
-            <ActionIcon size={28} disabled style={{ opacity: 0.4 }}>
-              <IconDots size={16} />
-            </ActionIcon>
-          </Tooltip>
-        );
-      }
-
-      // Last page
-      if (end < totalPages - 1) {
-        indicators.push(
-          <Tooltip key="last" label={`Page ${totalPages}`} position="top" withArrow>
-            <ActionIcon
-              size={28}
-              variant="subtle"
-              color="gray"
-              onClick={() => onPageChange(totalPages - 1)}
-              onMouseEnter={() => setHoveredPage(totalPages - 1)}
-              onMouseLeave={() => setHoveredPage(null)}
-              style={{ cursor: 'pointer' }}
-            >
-              <IconCircleDot size={16} />
-            </ActionIcon>
-          </Tooltip>
-        );
-      }
-    }
-
-    return indicators;
-  };
-
-  const renderNavigation = () => {
-    const isFirstPage = currentPage === 0;
-    const isLastPage = currentPage === totalPages - 1;
+    };
 
     return (
-      <Flex 
-        direction="column" 
-        align="center" 
-        gap="md"
-        style={{ width: '100%' }}
-      >
-        {/* Navigation Buttons */}
-        <Group justify="center" gap="lg" wrap="nowrap">
-          {!isFirstPage && (
-            <Tooltip label="Previous Page" position="top" withArrow>
-              <Button 
-                variant="outline" 
-                size="md" 
-                leftSection={<IconChevronLeft size={16} />}
-                onClick={onPrevious}
-                style={{ flexShrink: 0 }}
-              >
-                Back
-              </Button>
-            </Tooltip>
-          )}
-
-          <Flex 
-            direction="column" 
-            align="center" 
-            gap={8}
-            style={{ flex: 1, minWidth: 200 }}
-          >
-            {/* Progress Bar */}
-            <Progress 
-              size="md" 
-              value={getProgress()} 
-              color="blue"
-              radius="xl"
-              style={{ 
-                width: '100%',
-                maxWidth: 300,
-                height: 8
-              }}
-              sections={[
-                { value: getProgress(), color: 'blue' },
-                { value: 100 - getProgress(), color: 'gray' }
-              ]}
-            />
-
-            {/* Progress Info */}
-            <Group gap="xs" justify="center" wrap="nowrap">
-              <Text size="sm" fw={500} c="blue">
-                {Math.round(getProgress())}%
-              </Text>
-              <Text size="xs" c="dimmed">
-                • Page {currentPage + 1} of {totalPages}
-              </Text>
-            </Group>
-          </Flex>
-
-          {isLastPage ? (
-            <Tooltip label="Submit Learning Material" position="top" withArrow>
-              <Button 
-                size="md" 
-                color="green"
-                leftSection={<IconPlayerPlay size={16} />}
-                onClick={onSubmit}
-                style={{ flexShrink: 0 }}
-              >
-                Submit
-              </Button>
-            </Tooltip>
-          ) : (
-            <Tooltip label="Next Page" position="top" withArrow>
-              <Button 
-                size="md" 
-                leftSection={<IconChevronRight size={16} />}
-                onClick={onNext}
-                style={{ flexShrink: 0 }}
-              >
-                Next
-              </Button>
-            </Tooltip>
-          )}
-        </Group>
-
-        {/* Page Indicators (only show if more than 3 pages) */}
-        {totalPages > 3 && (
-          <Box>
-            <Center>
-              <Group gap="xs" justify="center">
-                {renderPageIndicators()}
-              </Group>
-            </Center>
-            <Text size="xs" c="dimmed" ta="center" mt={4} style={{ fontSize: '11px' }}>
-              Click dots to jump to any page
-            </Text>
-          </Box>
-        )}
-      </Flex>
+        <Box style={{ width: '100%' }}>
+            {showProgress && renderNavigation()}
+        </Box>
     );
-  };
-
-  return (
-    <Box style={{ width: '100%' }}>
-      {showProgress && renderNavigation()}
-    </Box>
-  );
 }
 
 // The main JotformViewer component
@@ -543,7 +543,7 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
             setPageIndex(0);
             setSubmissionStatus(null);
             try {
-                const response = await axios.get(`http://localhost:8081/api/jotforms`, {
+                const response = await axios.get(`https://pulse-backend-latest.onrender.com/api/jotforms`, {
                     withCredentials: true,
                 });
 
@@ -553,7 +553,7 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
                     if (!foundForm.pages || !Array.isArray(foundForm.pages)) {
                         foundForm.pages = [];
                     }
-                    
+
                     // Ensure each page has elements array
                     foundForm.pages = foundForm.pages.map(page => ({
                         ...page,
@@ -606,7 +606,7 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
 
         try {
             setSubmissionStatus('submitting');
-            
+
             // Prepare submission data
             const submissionData = {
                 jotformName: formData.jotformName,
@@ -631,7 +631,7 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
             } else {
                 // Default submission to backend
                 const response = await axios.post(
-                    `http://localhost:8081/api/jotforms/${formData.id}/submit`,
+                    `https://pulse-backend-latest.onrender.com/api/jotforms/${formData.id}/submit`,
                     submissionData,
                     {
                         headers: {
@@ -715,8 +715,8 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
                     <Text size="lg" c="dimmed" mb="xl">
                         Thank you for completing "{formData?.jotformName}"
                     </Text>
-                    <Button 
-                        variant="outline" 
+                    <Button
+                        variant="outline"
                         size="md"
                         onClick={onBack || (() => window.history.back())}
                         leftSection={<IconChevronLeft size={16} />}
@@ -741,7 +741,7 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
                         minHeight: "70vh"
                     }}>
                         {/* Header */}
-                        <Box p="md" pb="xs" style={{ 
+                        <Box p="md" pb="xs" style={{
                             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                             color: 'white'
                         }}>
@@ -755,9 +755,9 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
                                     </Text>
                                 </Box>
                                 {pageIndex > 0 && (
-                                    <Badge 
-                                        color="blue" 
-                                        variant="light" 
+                                    <Badge
+                                        color="blue"
+                                        variant="light"
                                         size="lg"
                                         leftSection={<IconBook size={14} />}
                                     >
@@ -811,8 +811,8 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
                 <Text size="md" c="dimmed" mb="xl">
                     The requested learning material could not be loaded.
                 </Text>
-                <Button 
-                    variant="outline" 
+                <Button
+                    variant="outline"
                     size="md"
                     onClick={onBack || (() => window.history.back())}
                     leftSection={<IconChevronLeft size={16} />}
@@ -824,8 +824,8 @@ export function JotformViewer({ jotformName, onBack, hideBackButton = false, onS
     };
 
     return (
-        <Box style={{ 
-            minHeight: '100vh', 
+        <Box style={{
+            minHeight: '100vh',
             background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
             padding: hideBackButton ? "md" : "xl",
         }}>

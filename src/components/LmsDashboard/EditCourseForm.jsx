@@ -36,7 +36,7 @@ export function EditCourseForm({ course, onSuccess, onCancel }) {
 
   const fetchJotforms = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/api/jotforms", {
+      const response = await axios.get("https://pulse-backend-latest.onrender.com/api/jotforms", {
         withCredentials: true,
       });
       setJotforms(response.data.map((form) => form.jotformName));
@@ -47,7 +47,7 @@ export function EditCourseForm({ course, onSuccess, onCancel }) {
 
   const fetchCourseNames = async () => {
     try {
-      const response = await axios.get("http://localhost:8081/api/courses/names", {
+      const response = await axios.get("https://pulse-backend-latest.onrender.com/api/courses/names", {
         withCredentials: true,
       });
       // Filter out the current course name from prerequisites
@@ -71,20 +71,20 @@ export function EditCourseForm({ course, onSuccess, onCancel }) {
     formData.append("learningJotformName", learningJotform);
     formData.append("assignmentJotformName", assignmentJotform);
     if (imageFile) {
-        formData.append("imageFile", imageFile);
+      formData.append("imageFile", imageFile);
     }
     if (pdfFile) {
-        formData.append("pdfFile", pdfFile);
+      formData.append("pdfFile", pdfFile);
     }
     if (daysOfJoining !== null) {
-        formData.append("daysOfJoining", daysOfJoining);
+      formData.append("daysOfJoining", daysOfJoining);
     }
     formData.append("preRequisiteCourseName", preRequisite);
 
 
     try {
       await axios.put(
-        `http://localhost:8081/api/courses/${course.id}`,
+        `https://pulse-backend-latest.onrender.com/api/courses/${course.id}`,
         formData,
         {
           withCredentials: true,
@@ -137,7 +137,7 @@ export function EditCourseForm({ course, onSuccess, onCancel }) {
         mb="sm"
         accept="image/*"
       />
-       <FileInput
+      <FileInput
         label="Course Material (PDF)"
         placeholder="Upload new PDF"
         leftSection={<IconUpload size={14} />}

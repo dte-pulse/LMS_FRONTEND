@@ -22,12 +22,12 @@ export function UserManagement() {
   const [loading, setLoading] = useState(true);
   const [mapModalOpened, setMapModalOpened] = useState(false);
   const navigate = useNavigate();
-  
+
   const fetchUsers = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        " http://localhost:8081/api/user-mappings",
+        " https://pulse-backend-latest.onrender.com/api/user-mappings",
         {
           withCredentials: true,
         }
@@ -57,7 +57,7 @@ export function UserManagement() {
   const confirmDelete = async (userToDelete) => {
     try {
       await axios.delete(
-        ` http://localhost:8081/api/user-mappings/${userToDelete.id}`,
+        ` https://pulse-backend-latest.onrender.com/api/user-mappings/${userToDelete.id}`,
         {
           withCredentials: true,
         }
@@ -132,14 +132,14 @@ export function UserManagement() {
       <Group justify="space-between" mb="xl">
         <Title order={2}>User Management</Title>
         <Button
-                                    variant="light"
-                                    color="blue"
-                                    size="sm"
-                                    leftIcon={<IconArrowLeft size={16} />}
-                                    onClick={handleBack}
-                                  >
-                                    Back
-                        </Button>
+          variant="light"
+          color="blue"
+          size="sm"
+          leftIcon={<IconArrowLeft size={16} />}
+          onClick={handleBack}
+        >
+          Back
+        </Button>
         <Button onClick={() => setMapModalOpened(true)}>Map User</Button>
       </Group>
 

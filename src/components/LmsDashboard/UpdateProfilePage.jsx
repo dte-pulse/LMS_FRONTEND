@@ -25,10 +25,10 @@ export function UpdateProfilePage() {
 
     const handleUpdate = async (values) => {
         try {
-            const response = await axios.put('http://localhost:8081/api/auth/profile', values, {
+            const response = await axios.put('https://pulse-backend-latest.onrender.com/api/auth/profile', values, {
                 withCredentials: true,
             });
-            
+
             login(response.data);
             navigate('/subject');
         } catch (error) {
@@ -41,7 +41,7 @@ export function UpdateProfilePage() {
             <Paper withBorder shadow="md" p={30} mt={30} radius="md">
                 <Title order={2} ta="center">Complete Your Profile</Title>
                 <Text c="dimmed" ta="center" mb="xl">Please fill in your details to continue.</Text>
-                
+
                 <form onSubmit={form.onSubmit(handleUpdate)}>
                     <Stack>
                         <Group grow>

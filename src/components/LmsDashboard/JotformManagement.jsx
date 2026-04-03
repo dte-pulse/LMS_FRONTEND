@@ -30,7 +30,7 @@ export function JotformManagement() {
   const fetchJotforms = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:8081/api/jotforms", {
+      const response = await axios.get("https://pulse-backend-latest.onrender.com/api/jotforms", {
         withCredentials: true,
       });
       setJotforms(response.data);
@@ -65,7 +65,7 @@ export function JotformManagement() {
   const confirmDelete = async (formToDelete) => {
     try {
       await axios.delete(
-        `http://localhost:8081/api/jotforms/${formToDelete.id}`,
+        `https://pulse-backend-latest.onrender.com/api/jotforms/${formToDelete.id}`,
         {
           withCredentials: true,
         }
@@ -74,7 +74,7 @@ export function JotformManagement() {
       setJotforms((currentForms) =>
         currentForms.filter((form) => form.id !== formToDelete.id)
       );
-      
+
       // Use notification for successful deletion
       notifications.show({
         title: "Jotform Deleted",
@@ -153,14 +153,14 @@ export function JotformManagement() {
       <Group justify="space-between" mb="xl">
         <Title order={2}>Jotform Management</Title>
         <Button
-                    variant="light"
-                    color="blue"
-                    size="sm"
-                    leftIcon={<IconArrowLeft size={16} />}
-                    onClick={handleBack}
-                  >
-                    Back
-                  </Button>
+          variant="light"
+          color="blue"
+          size="sm"
+          leftIcon={<IconArrowLeft size={16} />}
+          onClick={handleBack}
+        >
+          Back
+        </Button>
         <Button onClick={() => setCreateJotformModalOpened(true)}>
           Create Jotform
         </Button>

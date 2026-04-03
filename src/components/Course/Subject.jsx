@@ -24,10 +24,10 @@ export function Subject() {
             setError(null);
             try {
                 const [subjectsResponse, completionsResponse] = await Promise.all([
-                    axios.get('http://localhost:8081/api/subjects', { withCredentials: true }),
-                    axios.get('http://localhost:8081/api/completions/user', { withCredentials: true })
+                    axios.get('https://pulse-backend-latest.onrender.com/api/subjects', { withCredentials: true }),
+                    axios.get('https://pulse-backend-latest.onrender.com/api/completions/user', { withCredentials: true })
                 ]);
-                
+
                 const allSubjects = subjectsResponse.data[group] || [];
                 setSubjects(allSubjects);
                 setCompletions(completionsResponse.data);
@@ -59,14 +59,14 @@ export function Subject() {
         const today = new Date();
         const timeDiff = today.getTime() - joiningDate.getTime();
         const daysSinceJoining = Math.floor(timeDiff / (1000 * 3600 * 24));
-        
+
         return daysSinceJoining >= requiredDays;
     };
 
     const filterAndSetCourses = (subject) => {
         const visibleCourses = (subject.courses || []).filter(course => {
             const hasDays = hasSufficientDays(course.daysOfJoining);
-            
+
             if (course.preRequisiteCourseName) {
                 const hasPrereq = isPrerequisiteCompleted(course.preRequisiteCourseName);
                 return hasDays && hasPrereq;
@@ -112,7 +112,7 @@ export function Subject() {
                 {courses.length > 0 ? (
                     <SimpleGrid cols={{ base: 1, sm: 2, md: 3, lg: 4 }} spacing="lg">
                         {courses.map((course) => (
-                            <CourseCard key={course.id} course={{...course, groupName: group}} onSelectCourse={handleSelectCourse} />
+                            <CourseCard key={course.id} course={{ ...course, groupName: group }} onSelectCourse={handleSelectCourse} />
                         ))}
                     </SimpleGrid>
                 ) : (
@@ -121,7 +121,7 @@ export function Subject() {
             </Container>
         );
     }
-    
+
 
     return (
         <Container size="xl" py="xl">

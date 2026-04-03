@@ -20,7 +20,7 @@ import { IconTrash, IconEdit } from '@tabler/icons-react';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = 'http://localhost:8081/api';
+const API_URL = 'https://pulse-backend-latest.onrender.com/api';
 
 const SubjectManagement = () => {
     const [subjectsByGroup, setSubjectsByGroup] = useState({});
@@ -124,7 +124,7 @@ const SubjectManagement = () => {
         setSelectedCourses(subject.courses.map(course => course.id.toString()));
         setModalOpened(true);
     };
-    
+
     const handleDelete = async (id) => {
         if (window.confirm('Are you sure you want to delete this subject?')) {
             try {
@@ -135,7 +135,7 @@ const SubjectManagement = () => {
             }
         }
     };
-    
+
     const handleCloseModal = () => {
         setModalOpened(false);
         setIsEditMode(false);

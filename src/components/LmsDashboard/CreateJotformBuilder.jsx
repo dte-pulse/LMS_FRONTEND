@@ -160,7 +160,7 @@ function getElementComponent(
         }}
       >
         <Group spacing={4}>
-          {![ "videorecording", "audiorecording"].includes(element.type) && (
+          {!["videorecording", "audiorecording"].includes(element.type) && (
             <Tooltip label="Properties" position="top">
               <ActionIcon
                 size="sm"
@@ -562,7 +562,7 @@ function PropertiesPanel({ selectedElement, onPropertyChange, onClose }) {
   }
 
   // Don't show properties panel for recording elements
-  if ([ "videorecording", "audiorecording"].includes(selectedElement.type)) {
+  if (["videorecording", "audiorecording"].includes(selectedElement.type)) {
     return (
       <Box
         style={{
@@ -713,18 +713,18 @@ function PropertiesPanel({ selectedElement, onPropertyChange, onClose }) {
             {["orderedlist", "unorderedlist"].includes(
               selectedElement.type
             ) && (
-              <Box>
-                <Text size="sm" mb={4}>
-                  List Items (one per line)
-                </Text>
-                <Textarea
-                  value={listItemsText}
-                  onChange={(e) => handleListItemsChange(e.target.value)}
-                  placeholder="Enter list items, one per line"
-                  rows={4}
-                />
-              </Box>
-            )}
+                <Box>
+                  <Text size="sm" mb={4}>
+                    List Items (one per line)
+                  </Text>
+                  <Textarea
+                    value={listItemsText}
+                    onChange={(e) => handleListItemsChange(e.target.value)}
+                    placeholder="Enter list items, one per line"
+                    rows={4}
+                  />
+                </Box>
+              )}
 
             {/* File upload or URL for image/audio/video */}
             {["image", "audio", "video"].includes(selectedElement.type) && (
@@ -733,8 +733,8 @@ function PropertiesPanel({ selectedElement, onPropertyChange, onClose }) {
                   {selectedElement.type === "image"
                     ? "Image File or URL"
                     : selectedElement.type === "audio"
-                    ? "Audio File or URL"
-                    : "Video File or URL"}
+                      ? "Audio File or URL"
+                      : "Video File or URL"}
                 </Text>
                 <TextInput
                   placeholder="Enter URL (e.g. https://example.com/media.mp4)"
@@ -750,8 +750,8 @@ function PropertiesPanel({ selectedElement, onPropertyChange, onClose }) {
                     selectedElement.type === "image"
                       ? "image/*"
                       : selectedElement.type === "audio"
-                      ? "audio/*"
-                      : "video/*"
+                        ? "audio/*"
+                        : "video/*"
                   }
                   onChange={handleFileUpload}
                   leftSection={<IconUpload size={14} />}
@@ -826,47 +826,47 @@ function PropertiesPanel({ selectedElement, onPropertyChange, onClose }) {
             )}
 
             {/* Alignment for applicable elements */}
-            {![ "breakline", "horizontalline"].includes(
+            {!["breakline", "horizontalline"].includes(
               selectedElement.type
             ) && (
-              <Box>
-                <Text size="sm" mb={4}>
-                  Alignment
-                </Text>
-                <Group>
-                  <Button
-                    size="xs"
-                    variant={
-                      selectedElement.align === "left" ? "filled" : "subtle"
-                    }
-                    onClick={() => onPropertyChange("align", "left")}
-                  >
-                    LEFT
-                  </Button>
-                  <Button
-                    size="xs"
-                    variant={
-                      selectedElement.align === "center" ? "filled" : "subtle"
-                    }
-                    onClick={() => onPropertyChange("align", "center")}
-                  >
-                    CENTER
-                  </Button>
-                  <Button
-                    size="xs"
-                    variant={
-                      selectedElement.align === "right" ? "filled" : "subtle"
-                    }
-                    onClick={() => onPropertyChange("align", "right")}
-                  >
-                    RIGHT
-                  </Button>
-                </Group>
-                <Text size="xs" color="dimmed" mt={4}>
-                  Select how the content is aligned horizontally
-                </Text>
-              </Box>
-            )}
+                <Box>
+                  <Text size="sm" mb={4}>
+                    Alignment
+                  </Text>
+                  <Group>
+                    <Button
+                      size="xs"
+                      variant={
+                        selectedElement.align === "left" ? "filled" : "subtle"
+                      }
+                      onClick={() => onPropertyChange("align", "left")}
+                    >
+                      LEFT
+                    </Button>
+                    <Button
+                      size="xs"
+                      variant={
+                        selectedElement.align === "center" ? "filled" : "subtle"
+                      }
+                      onClick={() => onPropertyChange("align", "center")}
+                    >
+                      CENTER
+                    </Button>
+                    <Button
+                      size="xs"
+                      variant={
+                        selectedElement.align === "right" ? "filled" : "subtle"
+                      }
+                      onClick={() => onPropertyChange("align", "right")}
+                    >
+                      RIGHT
+                    </Button>
+                  </Group>
+                  <Text size="xs" color="dimmed" mt={4}>
+                    Select how the content is aligned horizontally
+                  </Text>
+                </Box>
+              )}
 
             <Box>
               <Text size="sm" mb={4}>
@@ -901,7 +901,7 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
   // FIXED: Corrected ellipsis logic to prevent duplicate dots
   const showEllipsis = pages.length > 7; // Show ellipsis if more than 7 pages
   const maxVisiblePages = 5; // Maximum pages to show at once
-  
+
   // Calculate the starting page index for the visible range
   let startPage;
   if (pages.length <= maxVisiblePages) {
@@ -922,7 +922,7 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
 
   const getVisiblePages = () => {
     const visiblePages = [];
-    
+
     if (pages.length <= maxVisiblePages) {
       // Show all pages without ellipsis
       for (let i = 0; i < pages.length; i++) {
@@ -932,7 +932,7 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
       // Show first page always
       if (startPage > 0) {
         visiblePages.push(0);
-        
+
         // Add left ellipsis if there's a gap after first page
         if (startPage > 1) {
           visiblePages.push('ellipsis-left');
@@ -950,7 +950,7 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
         if (endPage < pages.length - 2) {
           visiblePages.push('ellipsis-right');
         }
-        
+
         visiblePages.push(pages.length - 1);
       }
     }
@@ -961,13 +961,13 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
   const renderPageButton = (pageIndex, type = 'page') => {
     if (type === 'ellipsis-left' || type === 'ellipsis-right') {
       return (
-        <Text 
-          key={`${type}-${Date.now()}`} 
-          size="sm" 
-          color="dimmed" 
-          style={{ 
-            padding: '0 12px', 
-            lineHeight: '32px', 
+        <Text
+          key={`${type}-${Date.now()}`}
+          size="sm"
+          color="dimmed"
+          style={{
+            padding: '0 12px',
+            lineHeight: '32px',
             fontWeight: 500,
             minWidth: 20,
             textAlign: 'center'
@@ -1000,15 +1000,15 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
   const visiblePages = getVisiblePages();
 
   return (
-    <Box style={{ 
+    <Box style={{
       backgroundColor: 'white', // White background
       borderRadius: 8,
       padding: '4px 8px',
       boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
       border: '1px solid #e0e0e0',
     }}>
-      <ScrollArea 
-        style={{ 
+      <ScrollArea
+        style={{
           width: 300,
         }}
         scrollbarSize={6}
@@ -1024,18 +1024,18 @@ function PaginationNumbers({ pages, currentPage, onPageChange, isPreview }) {
           },
         }}
       >
-        <Group 
+        <Group
           justify="center"
-          spacing="xs" 
-          p="xs" 
-          style={{ 
+          spacing="xs"
+          p="xs"
+          style={{
             minWidth: 'max-content',
             flexWrap: 'nowrap',
             alignItems: 'center',
           }}
         >
-          {visiblePages.map((pageIndex) => 
-            typeof pageIndex === 'string' 
+          {visiblePages.map((pageIndex) =>
+            typeof pageIndex === 'string'
               ? renderPageButton(null, pageIndex)
               : renderPageButton(pageIndex, 'page')
           )}
@@ -1243,7 +1243,7 @@ export function CreateJotformBuilder() {
     try {
       console.log(fullData);
       const response = await axios.post(
-        "http://localhost:8081/api/jotforms",
+        "https://pulse-backend-latest.onrender.com/api/jotforms",
         fullData,
         {
           headers: {
@@ -1327,9 +1327,9 @@ export function CreateJotformBuilder() {
             zIndex: 10,
           }}
         >
-          <PaginationNumbers 
-            pages={pages} 
-            currentPage={currentPage} 
+          <PaginationNumbers
+            pages={pages}
+            currentPage={currentPage}
             onPageChange={setCurrentPage}
             isPreview={isPreview}
           />
@@ -1337,12 +1337,12 @@ export function CreateJotformBuilder() {
 
         {/* Right Action */}
         <Box style={{ display: "flex", alignItems: "center" }}>
-          <Button 
-            size="sm" 
-            variant="white" 
-            onClick={addPage} 
-            style={{ 
-              whiteSpace: 'nowrap', 
+          <Button
+            size="sm"
+            variant="white"
+            onClick={addPage}
+            style={{
+              whiteSpace: 'nowrap',
               flexShrink: 0,
             }}
           >
@@ -1497,10 +1497,10 @@ export function CreateJotformBuilder() {
                         <Box key={idx} mb="md">
                           {getElementComponent(
                             element,
-                            () => {},
+                            () => { },
                             false,
-                            () => {},
-                            () => {},
+                            () => { },
+                            () => { },
                             idx
                           )}
                         </Box>

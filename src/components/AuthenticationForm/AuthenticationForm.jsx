@@ -28,10 +28,10 @@ export function AuthenticationForm(props) {
         setLoading(true);
         setError(null);
         setSuccess(null); // Clear previous messages
-        
-        const endpoint = `http://localhost:8081/api/auth/${type}`;
-        const payload = type === 'register' 
-            ? { username: values.username, email: values.email, password: values.password } 
+
+        const endpoint = `https://pulse-backend-latest.onrender.com/api/auth/${type}`;
+        const payload = type === 'register'
+            ? { username: values.username, email: values.email, password: values.password }
             : { username: values.username, password: values.password };
 
         try {
@@ -46,12 +46,12 @@ export function AuthenticationForm(props) {
             } else {
                 // --- LOGIN FLOW (Original Logic) ---
                 await axios.post(endpoint, payload, { withCredentials: true });
-                const userDetailsEndpoint = `http://localhost:8081/api/auth/${values.username}`;
+                const userDetailsEndpoint = `https://pulse-backend-latest.onrender.com/api/auth/${values.username}`;
                 const userDetailsResponse = await axios.get(userDetailsEndpoint, { withCredentials: true });
-                
+
                 const userData = userDetailsResponse.data;
                 console.log("User Details from backend:", userData);
-                
+
                 login(userData);
 
                 // Navigate based on role and profile completeness
@@ -80,7 +80,7 @@ export function AuthenticationForm(props) {
                     {/* --- NEW: Success Alert --- */}
                     {success && (<Alert icon={<IconCheck size="1rem" />} title="Success" color="green" withCloseButton onClose={() => setSuccess(null)}>{success}</Alert>)}
                     {error && (<Alert icon={<IconAlertCircle size="1rem" />} title="Error" color="red" withCloseButton onClose={() => setError(null)}>{error}</Alert>)}
-                    
+
                     <TextInput required label="Username" placeholder="Your username" {...form.getInputProps('username')} radius="md" />
                     {type === 'register' && (<TextInput required label="Email" placeholder="hello@example.com" {...form.getInputProps('email')} radius="md" />)}
                     <PasswordInput required label="Password" placeholder="Your password" {...form.getInputProps('password')} radius="md" />
