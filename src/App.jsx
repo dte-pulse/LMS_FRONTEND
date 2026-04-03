@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { HeaderMegaMenu } from './components/HeaderMegaMenu/HeaderMegaMenu';
 import { FooterLinks } from './components/FooterLinks/FooterLinks';
 import { AuthenticationForm } from './components/AuthenticationForm/AuthenticationForm';
@@ -31,6 +31,7 @@ import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
+  const location = useLocation();
 
   return (
     <div>
@@ -62,7 +63,7 @@ function App() {
         <Route path="/update-profile" element={<UpdateProfilePage />} />
         <Route path="/certificates" element={<CertificatesList />} />
       </Routes>
-      <FooterLinks />
+      {location.pathname === '/' && <FooterLinks />}
       <GeminiChatModal />
       {/* </Router> has been removed from here */}
     </div>
