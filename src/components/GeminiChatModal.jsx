@@ -42,25 +42,26 @@ function GeminiChatModal() {
     setError('');
 
     try {
-      // --- START OF UPDATE ---
-      // Switched to axios and added withCredentials
+      // Read JWT token from localStorage (stored during login)
+      const storedUser = localStorage.getItem('userDetails');
+      const token = storedUser ? JSON.parse(storedUser)?.token : null;
+
       const response = await axios.post(
         'https://pulse-backend-latest.onrender.com/api/gemini/ask',
-        prompt, // Sending the prompt string directly as the body
+        prompt,
         {
           headers: {
             'Content-Type': 'text/plain',
+            ...(token && { Authorization: `Bearer ${token}` }),
           },
           withCredentials: true,
         }
       );
-      // --- END OF UPDATE ---
 
       const botMessage = { sender: 'bot', text: response.data };
       setChatHistory(prev => [...prev, botMessage]);
 
     } catch (err) {
-      // Updated error handling for axios
       const errorMessage = err.response?.data || err.message || 'An unexpected error occurred.';
       setError(errorMessage);
       const errorBotMessage = { sender: 'bot', text: 'Sorry, I ran into an error. Please try again.' };

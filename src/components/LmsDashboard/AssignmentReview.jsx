@@ -7,10 +7,14 @@ import {
   ActionIcon,
   NumberInput,
   Group,
+  Button,
+  Loader,
 } from "@mantine/core";
-import { IconPencil, IconDeviceFloppy } from "@tabler/icons-react";
+import { IconPencil, IconDeviceFloppy, IconVideo } from "@tabler/icons-react";
 import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+
+const API_BASE = "https://pulse-backend-latest.onrender.com";
 
 export function AssignmentReview() {
   const { courseId, userId } = useParams();
@@ -18,17 +22,16 @@ export function AssignmentReview() {
   const { username } = location.state || { username: "User" };
   const [answers, setAnswers] = useState([]);
   const [loading, setLoading] = useState(false);
+  // Track which answer's video URL is being fetched: { [answerId]: boolean }
+  const [videoLoading, setVideoLoading] = useState({});
 
   useEffect(() => {
     const fetchAssignmentDetails = async () => {
       setLoading(true);
       try {
-        // --- UPDATED GET REQUEST ---
         const response = await axios.get(
-          `https://pulse-backend-latest.onrender.com/api/results/submissions/${courseId}/${userId}`,
-          {
-            withCredentials: true,
-          }
+          `${API_BASE}/api/results/submissions/${courseId}/${userId}`,
+          { withCredentials: true }
         );
         const dataWithEditingState = response.data.map((item) => ({
           ...item,
@@ -69,15 +72,11 @@ export function AssignmentReview() {
   const handleSaveScore = async (id) => {
     const itemToSave = answers.find((item) => item.id === id);
     if (!itemToSave) return;
-
     try {
-      // --- UPDATED PUT REQUEST ---
       await axios.put(
-        `https://pulse-backend-latest.onrender.com/api/results/answer/${id}`,
+        `${API_BASE}/api/results/answer/${id}`,
         { finalScore: itemToSave.tempScore },
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       setAnswers(
         answers.map((item) =>
@@ -88,6 +87,28 @@ export function AssignmentReview() {
       );
     } catch (error) {
       console.error("Error updating score:", error);
+    }
+  };
+
+  /**
+   * Production-grade video viewer.
+   * Calls the backend to get a FRESH pre-signed S3 URL on every click,
+   * so the video is always accessible no matter how old the submission is.
+   */
+  const handleViewVideo = async (answerId) => {
+    setVideoLoading((prev) => ({ ...prev, [answerId]: true }));
+    try {
+      const response = await axios.get(
+        `${API_BASE}/api/results/video/${answerId}`,
+        { withCredentials: true }
+      );
+      // Open the fresh signed URL in a new tab
+      window.open(response.data, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Error fetching video URL:", error);
+      alert("Could not load the video. Please try again.");
+    } finally {
+      setVideoLoading((prev) => ({ ...prev, [answerId]: false }));
     }
   };
 
@@ -103,6 +124,7 @@ export function AssignmentReview() {
       <Group justify="space-between" mb="xl">
         <Title order={3}>Assignment Review for: {username}</Title>
       </Group>
+
       {loading ? (
         <Text>Loading assignment details...</Text>
       ) : (
@@ -122,15 +144,32 @@ export function AssignmentReview() {
               <Table.Tr key={item.id}>
                 <Table.Td>{item.question}</Table.Td>
                 <Table.Td>{item.userAnswer}</Table.Td>
+
+                {/* Video cell — always fetches a fresh signed URL on click */}
                 <Table.Td>
-                  <a
-                    href={item.contentLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View Video
-                  </a>
+                  {item.contentLink ? (
+                    <Button
+                      variant="light"
+                      size="xs"
+                      leftSection={
+                        videoLoading[item.id] ? (
+                          <Loader size={12} />
+                        ) : (
+                          <IconVideo size={14} />
+                        )
+                      }
+                      disabled={!!videoLoading[item.id]}
+                      onClick={() => handleViewVideo(item.id)}
+                    >
+                      {videoLoading[item.id] ? "Loading…" : "View Video"}
+                    </Button>
+                  ) : (
+                    <Text size="xs" c="dimmed">
+                      No video
+                    </Text>
+                  )}
                 </Table.Td>
+
                 <Table.Td>{item.gptScore}</Table.Td>
                 <Table.Td>
                   {item.editing ? (
